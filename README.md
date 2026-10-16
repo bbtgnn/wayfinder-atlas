@@ -13,13 +13,13 @@ bun run check
 bun run dev
 ```
 
-`bun run dev` serves **http://localhost:4444** (Velite watch and Vite together). The shipped fixture is enough; no Attesta checkout is required.
+`bun run dev` serves **http://localhost:4444** (Velite watch and Vite together) against the maps and tickets in `.scratch`.
 
 `bun test` builds Velite first (see `bunfig.toml`), then runs projection and wayfinder tests.
 
 ## Content root
 
-Velite reads `ATLAS_CONTENT_ROOT`. When that variable is unset, the root is `./content` next to `velite.config.ts`.
+Velite reads `ATLAS_CONTENT_ROOT`. When that variable is unset, the root is `./.scratch` next to `velite.config.ts`. That tree holds the original `atlas` and `pre-build` maps and tickets.
 
 Collections stay:
 

@@ -5,7 +5,7 @@ import { wayfinderMd } from './src/content/wayfinder-loader'
 
 // Relative to this config file. Absolute via import.meta.url breaks after Velite
 // esbuild-compiles the config; ATLAS_CONTENT_ROOT is read when the compiled config runs.
-const contentRoot = process.env.ATLAS_CONTENT_ROOT?.trim() || 'content'
+const contentRoot = process.env.ATLAS_CONTENT_ROOT?.trim() || '.scratch'
 
 export default defineConfig({
 	root: contentRoot,

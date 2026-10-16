@@ -3,14 +3,14 @@
   "efforts": [
     {
       "effort": "atlas",
-      "ticketCount": 2,
-      "edgeCount": 1,
+      "ticketCount": 14,
+      "edgeCount": 13,
       "frontierCount": 0
     },
     {
       "effort": "pre-build",
-      "ticketCount": 1,
-      "edgeCount": 0,
+      "ticketCount": 14,
+      "edgeCount": 17,
       "frontierCount": 0
     }
   ]

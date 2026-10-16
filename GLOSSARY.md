@@ -10,7 +10,7 @@ Operator app that loads markdown maps and tickets and renders wayfinding views. 
 
 ## Effort
 
-A workstream under `<content-root>/<slug>/` with a `map.md` and numbered `issues/` tickets. The shipped fixture and the Attesta dogfood set both use `atlas` and `pre-build`.
+A workstream under `<content-root>/<slug>/` with a `map.md` and numbered `issues/` tickets. This repo ships `atlas` and `pre-build` under `.scratch`.
 
 ## Map
 

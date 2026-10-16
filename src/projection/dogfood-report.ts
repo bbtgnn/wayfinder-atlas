@@ -2,7 +2,7 @@ import type { Issue, Map as VeliteMap } from '../../.velite/index.js'
 import { projectEffort } from './project-effort'
 import type { EffortProjection } from './types'
 
-/** Dogfood effort ids. Fixture and Attesta `.scratch` both use these slugs. */
+/** Dogfood effort ids under the content root (`atlas` and `pre-build`). */
 export const DOGFOOD_EFFORTS = ['atlas', 'pre-build'] as const
 
 export type DogfoodEffortId = (typeof DOGFOOD_EFFORTS)[number]
