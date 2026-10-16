@@ -1,8 +1,12 @@
-# Atlas
+# wayfinder-atlas
 
-Operator wayfinder. It loads markdown maps and tickets and draws a blocker DAG. It is not an Attesta product surface.
+Experimental viewer for a [wayfinder](https://github.com/mattpocock/skills/blob/main/docs/engineering/wayfinder.md), Matt Pocock’s method for charting a large effort before anyone builds it.
 
-Vocabulary: [`GLOSSARY.md`](./GLOSSARY.md).
+The method writes a shared map of decision tickets. Each ticket is a question, not a slice of implementation. Tickets name what blocks them. The frontier is whatever is still open, unblocked, and unclaimed. Fog is the decisions you can see coming and cannot state yet. His skill stores that map on an issue tracker or as local markdown. This repo reads the local form and draws the blocker links as a graph.
+
+The live page is [bbtgnn.github.io/wayfinder-atlas](https://bbtgnn.github.io/wayfinder-atlas/). It shows the two maps this experiment was tried on, `atlas` and `pre-build`, under `.scratch/`. The layout is still being fiddled with.
+
+Vocabulary for the words on the map: [`GLOSSARY.md`](./GLOSSARY.md).
 
 ## Run
 
@@ -13,40 +17,36 @@ bun run check
 bun run dev
 ```
 
-`bun run dev` serves **http://localhost:4444** (Velite watch and Vite together) against the maps and tickets in `.scratch`.
+`bun run dev` serves http://localhost:4444. Velite watches `.scratch` and Vite serves the app.
 
-`bun test` builds Velite first (see `bunfig.toml`), then runs projection and wayfinder tests.
+`bun test` builds Velite first (see `bunfig.toml`), then runs the projection and layout tests.
 
-## Content root
+A Pages build needs the repo path:
 
-Velite reads `ATLAS_CONTENT_ROOT`. When that variable is unset, the root is `./.scratch` next to `velite.config.ts`. That tree holds the original `atlas` and `pre-build` maps and tickets.
+```bash
+BASE_PATH=/wayfinder-atlas bun run build
+bun run preview
+```
 
-Collections stay:
+## Content
+
+Velite reads `ATLAS_CONTENT_ROOT`. Unset, that is `./.scratch` next to `velite.config.ts`.
+
+It collects:
 
 - `{atlas,pre-build}/map.md`
 - `{atlas,pre-build}/issues/*.md`
 
-Tickets use `Key: value` lines (`Type`, `Status`, `Blocked by`, `Map`), not YAML frontmatter.
+Tickets use `Key: value` lines (`Type`, `Status`, `Blocked by`, `Map`), the same shape as Pocock’s local tracker, not YAML frontmatter.
 
-Point the variable at another tree to load the same effort names from there. An Attesta `.scratch` directory still loads `atlas` and `pre-build`:
+Point the variable at another directory that uses those two effort names:
 
 ```bash
-ATLAS_CONTENT_ROOT=/path/to/attesta-experiment/.scratch bun run dev
+ATLAS_CONTENT_ROOT=/path/to/scratch bun run dev
 ```
 
 See [`.env.example`](./.env.example).
 
 ## Layout
 
-The header button **Layout…** is the only control surface. There is no always-visible A/B strip.
-
-Default recipe (all on):
-
-| Flag | Role |
-| --- | --- |
-| `engine: 'elk'` | ELK layered placement |
-| `packComponentsX` | Weakly-connected islands: top-align (`minY → 0`) and space along X |
-| `elkEdgePost` | Remap sections, channel-mid L, downward clamp, obstacle clear |
-| `elkSeparateLanes` | Separate lanes; still default-on |
-
-Fixed order: `place → packComponentsX? → elkEdgePost?`. Dagre is an escape hatch (`DAGRE_RECIPE`) inside that same pipeline. Projection **Tier** stays on the model; it is not the layout Y driver. `layout-node-post.ts` remains in the tree and is unwired from the default path.
+**Layout…** in the header is the only control. The default recipe is all on: ELK placement, packing disconnected islands along X, edge post-routing, and separate lanes. Order is `place`, then pack, then edge post. Dagre is the other engine in that same pipeline. Projection Tier is stored on each ticket and does not drive Y.

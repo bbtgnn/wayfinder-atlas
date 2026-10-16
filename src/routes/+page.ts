@@ -2,8 +2,9 @@ import { issues, maps } from '../../.velite/index.js'
 import { DOGFOOD_EFFORTS, projectEffort } from '../projection/index.js'
 import type { EffortProjection } from '../projection/types.js'
 
-/** Client-only: Svelte Flow needs the browser. */
+/** Client-only: Svelte Flow needs the browser. Prerender writes the shell; 404.html is the Pages fallback. */
 export const ssr = false
+export const prerender = true
 
 export function load() {
 	const projections: Record<string, EffortProjection> = {}
