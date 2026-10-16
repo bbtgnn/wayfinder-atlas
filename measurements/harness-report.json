@@ -1,0 +1,17 @@
+{
+  "harness": "dogfood-projection",
+  "efforts": [
+    {
+      "effort": "atlas",
+      "ticketCount": 2,
+      "edgeCount": 1,
+      "frontierCount": 0
+    },
+    {
+      "effort": "pre-build",
+      "ticketCount": 1,
+      "edgeCount": 0,
+      "frontierCount": 0
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+import adapter from '@sveltejs/adapter-auto';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	server: {
+		port: 4444,
+		strictPort: true,
+	},
+	plugins: [
+		sveltekit({
+			compilerOptions: {
+				runes: ({ filename }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+			},
+			adapter: adapter(),
+		}),
+	],
+});
